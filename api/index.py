@@ -27,9 +27,11 @@ def embed():
 
     for embed_feature, embed_value in request.args.items():
         try:
-            query[embed_feature] = queries_to_metas[embed_value]
+            print("query: %s" % embed_feature)
+            print("value: %s" % embed_value)
+            query[queries_to_metas[embed_feature]] = embed_value
         except KeyError:
-            pass
+            continue
 
     embed = "<head>"
     for key, value in query.items():
