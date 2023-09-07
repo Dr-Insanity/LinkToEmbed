@@ -26,7 +26,7 @@ def embed():
     }
 
     for embed_feature, embed_value in request.args.items():
-        query[embed_feature] = embed_value
+        query[embed_feature] = queries_to_metas[embed_value]
 
     embed = "<head>"
     for key, value in query.items():
