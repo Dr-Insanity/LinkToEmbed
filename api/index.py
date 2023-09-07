@@ -25,7 +25,6 @@ def embed():
         queries_to_metas["color"]: "",
     }
 
-    # Process query parameters provided in the request
     for embed_feature, embed_value in request.args.items():
         query[embed_feature] = embed_value
 
