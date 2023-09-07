@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request
 import urllib.parse
+import html
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def embed():
 
     embed = "<head>"
     for key, value in query.items():
-        embed += f"<meta name={key} content={value}>"
+        embed += f"""<meta name={key} content="{value}">"""
     embed += "</head>"
 
     # Build the final URL, including only provided parameters
