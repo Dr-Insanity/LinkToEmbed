@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 @app.route('/embed')
 def embed():
-    base_url = "https://oembed.vercel.app/embed?"
+    base_url = "https://discordembeds.vercel.app/embed?"
     query = {}
-    for embed_feature, embed_value in request.args:
+    for embed_feature, embed_value in request.args.items():
         query[embed_feature] = embed_value
 
     embed_url = f"{base_url+urllib.parse.urlencode(query)}"
