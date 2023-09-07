@@ -36,7 +36,7 @@ def embed():
 
     embed = "<head>"
     for key, value in query.items():
-        embed += f"""<meta name={key} content="{value}">"""
+        embed += f"""<meta name={key} content="{html.escape(value)}">"""
     embed += "</head>"
 
     # Build the final URL, including only provided parameters
