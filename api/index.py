@@ -10,10 +10,10 @@ def embed():
     embed = "<head>"
     for embed_feature, embed_value in request.args.items():
         query[embed_feature] = embed_value
-        embed += """<meta name="{}" content="{}">""".format(embed_feature, embed_value)
-    embed += "</head>"
+        embed += "<meta name={} content={}>".format(embed_feature, embed_value)
+    embed += f"""</head>\n<body>\n<p>{query["title"]}</p>\n<p>{query["description"]}</p>\n</body>"""
     embed_url = f"{base_url+urllib.parse.urlencode(query)}"
-    
+
     return embed
 
 if __name__ == '__main__':
