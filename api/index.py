@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory, request
 import urllib.parse
 import html
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
 
 @app.route('/embed')
 def embed():
@@ -34,7 +34,7 @@ def embed():
         except KeyError:
             continue
 
-    embed = "<head>"
+    embed = "<head>\n   "
     for key, value in query.items():
         embed += f"""<meta name={key} content="{html.escape(value)}">"""
     embed += "</head>"
@@ -43,6 +43,10 @@ def embed():
     embed_url = f"{base_url}{urllib.parse.urlencode(query)}"
 
     return embed
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run()

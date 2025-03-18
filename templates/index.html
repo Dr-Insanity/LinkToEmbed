@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Embed Builder</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container, .preview-container {
+            max-width: 400px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        input[type="text"], textarea {
+            background: #333;
+            color: white;
+        }
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+        input[type="color"] {
+            height: 50px;
+            padding: 5px;
+        }
+        .preview-container {
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .embed-preview {
+            background: #2c2f33;
+            border-left: 5px solid;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .embed-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00aafc;
+            text-align: left;
+        }
+        .embed-description {
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
+        }
+        .copyable-link {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            word-break: break-all;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        .copyable-link:hover{
+            cursor: Select;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Link to Embed (Discord)</h1>
+    <div class="container">
+        <label for="title">Title:</label>
+        <input type="text" id="title" placeholder="Enter a title for your embed" oninput="updatePreview()">
+        
+        <label for="description">Description:</label>
+        <textarea id="description" placeholder="Enter a description for your embed" oninput="updatePreview()"></textarea>
+        
+        <label for="color">Choose a color:</label>
+        <input type="color" id="color" oninput="updatePreview()">
+    </div>
+    
+    <div class="preview-container">
+        <h2>Preview</h2>
+        <div class="copyable-link" id="generatedLink">Generated link will appear here</div>
+        <div class="embed-preview" id="embedPreview">
+            <div class="embed-title" id="embedTitle">Title Preview</div>
+            <div class="embed-description" id="embedDescription">Description Preview</div>
+        </div>
+    </div>
+
+    <script>
+    function updatePreview() {
+        const title = document.getElementById('title').value || "Title Preview";
+        const description = document.getElementById('description').value || "Description Preview";
+        const color = document.getElementById('color').value;
+
+        console.log(title);
+        // Check if any fields are empty and reset the preview link if so
+        const generatedLink = document.getElementById('generatedLink');
+        if (title ==  "Title Preview" || description == "Description Preview") {
+            generatedLink.textContent = "Fill in both text boxes to get a previewed link";
+            generatedLink.style.color = '#e73e42'; // Change to white if the fields are empty
+            generatedLink.style.cursor = 'not-allowed';
+            generatedLink.style.textDecoration = 'none';
+        } else {
+            // Generate a copyable link
+            const baseUrl = "https://discordembeds.vercel.app/embed?";
+            const params = new URLSearchParams({ title, description, color }).toString();
+            const fullLink = baseUrl + params;
+            generatedLink.textContent = fullLink;
+            generatedLink.style.color = '#00aafc'; // Use the blue color when the link is generated
+            generatedLink.style.cursor = 'pointer';
+            generatedLink.style.textDecoration = 'underline';
+            generatedLink.onclick = () => {
+                navigator.clipboard.writeText(fullLink);
+                generatedLink.textContent = "Copied to clipboard!";
+                generatedLink.style.fontStyle = 'normal';
+                generatedLink.style.color = '#1f9350'; // green success color
+                generatedLink.style.cursor = 'pointer';
+                generatedLink.style.textDecoration = 'none';
+                generatedLink.style.fontWeight = 'bold';
+
+                setTimeout(function() {
+                    generatedLink.style.color = '#00aafc';
+                    generatedLink.textContent = fullLink;
+                    generatedLink.style.textDecoration = 'none';
+                    generatedLink.style.fontStyle = 'italic';
+                    generatedLink.style.fontWeight = 'normal';
+                }, 3000);
+            }
+        }
+
+        // Update embed preview
+        document.getElementById('embedTitle').textContent = title;
+        document.getElementById('embedDescription').textContent = description;
+        document.getElementById('embedPreview').style.borderLeftColor = color;
+    }
+    </script>
+</body>
+</html>
