@@ -36,7 +36,9 @@
             text-align: center; /* Centers text horizontally */
             background-color: #252525; /* Optional: Background color */
         }
-
+        a {
+            color: #00aafc;
+        }
         body {
             background-color: #121212;
             color: white;
@@ -92,6 +94,10 @@
             font-weight: bold;
             color: #00aafc;
             text-align: left;
+        }
+        .embed-title:hover {
+            cursor: pointer;
+            text-decoration: underline;
         }
         .embed-description {
             font-size: 14px;
@@ -162,7 +168,7 @@
                 generatedLink.textContent = "Copied to clipboard!";
                 generatedLink.style.fontStyle = 'normal';
                 generatedLink.style.color = '#1f9350'; // green success color
-                generatedLink.style.cursor = 'pointer';
+                generatedLink.style.cursor = 'not-allowed';
                 generatedLink.style.textDecoration = 'none';
                 generatedLink.style.fontWeight = 'bold';
 
@@ -172,6 +178,7 @@
                     generatedLink.style.textDecoration = 'none';
                     generatedLink.style.fontStyle = 'italic';
                     generatedLink.style.fontWeight = 'normal';
+                    generatedLink.style.cursor = 'pointer';
                 }, 3000);
             }
         }
@@ -185,5 +192,5 @@
 </body>
 </html>
 <footer>
-    &copy; 2025 <a href="https://github.com/Dr-Insanity/LinkToEmbed" target="_blank">LinkToEmbed</a>. Amateurly coded by<a href="https://github.com/Dr-Insanity/" target="_blank">Dr-Insanity (Github)</a>.
+    &copy; 2025 <a href="https://github.com/Dr-Insanity/LinkToEmbed" target="_blank">LinkToEmbed</a>. Amateurly coded by <a href="https://github.com/Dr-Insanity/" target="_blank">Dr-Insanity (Github)</a>.
 </footer>
