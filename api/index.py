@@ -49,7 +49,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/sitemap')
-def index():
+def sitemap():
     return send_file('sitemap.xml')
 
 if __name__ == '__main__':
