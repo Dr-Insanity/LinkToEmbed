@@ -48,5 +48,9 @@ def embed():
 def index():
     return render_template('index.html')
 
+@app.route('googleseo')
+async def googleseo():
+    return render_template('google6e048c08e4f17c14.html')
+
 if __name__ == '__main__':
     app.run()
