@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="google-site-verification" content="x5u8dZd2GITGj_7jl2GzBOQsxBiTpdccqezKXeiA93s" />
     <meta charset="UTF-8">
     <link rel="stylesheet" href="static/slider.css"></link>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>DiscordEmbeds | Builder | Link To Embed</title>
+    <meta name="theme-color" content="#4752c4"/>
+    <!-- Primary Meta Tags -->
+    <title>DiscordEmbeds | Builder | Link To Embed</title>
+    <meta name="title" content="DiscordEmbeds | Builder | Link To Embed" />
+    <meta name="description" content="Want to send embeds like bots? Well, now you can!" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://discordembeds.vercel.app" />
+    <meta property="og:title" content="DiscordEmbeds | Builder | Link To Embed" />
+    <meta property="og:description" content="Want to send embeds like bots? Well, now you can!" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/Dr-Insanity/LinkToEmbed/refs/heads/main/images/main.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://discordembeds.vercel.app" />
+    <meta property="twitter:title" content="DiscordEmbeds | Builder | Link To Embed" />
+    <meta property="twitter:description" content="Want to send embeds like bots? Well, now you can!" />
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/Dr-Insanity/LinkToEmbed/refs/heads/main/images/main.png" />
+
+    <!-- Meta Tags Generated with https://metatags.io -->
+
     <title>Discord Embed Builder</title>
     <style>
+        footer {
+            bottom: 0;
+            position: fixed;
+            width: 100%;
+            text-align: center; /* Centers text horizontally */
+            background-color: #252525; /* Optional: Background color */
+        }
+        a {
+            color: #00aafc;
+        }
         body {
             background-color: #121212;
             color: white;
@@ -17,15 +52,18 @@
             max-width: 400px;
             margin: auto;
             background: #1e1e1e;
-            padding: 20px;
+            padding: 1%;
             border-radius: 8px;
+            box-sizing: border-box;
+            overflow:inherit;
+            word-wrap: break-word;
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
         input, textarea, button {
-            width: 100%;
+            width: 92.5%;
             padding: 12px;
             margin-top: 5px;
             border-radius: 5px;
@@ -58,6 +96,11 @@
             font-weight: bold;
             color: #00aafc;
             text-align: left;
+            width: max-content;
+        }
+        .embed-title:hover {
+            cursor: pointer;
+            text-decoration: underline;
         }
         .embed-description {
             font-size: 14px;
@@ -129,7 +172,7 @@
                 generatedLink.textContent = "Copied to clipboard!";
                 generatedLink.style.fontStyle = 'normal';
                 generatedLink.style.color = '#1f9350'; // green success color
-                generatedLink.style.cursor = 'pointer';
+                generatedLink.style.cursor = 'not-allowed';
                 generatedLink.style.textDecoration = 'none';
                 generatedLink.style.fontWeight = 'bold';
 
@@ -139,6 +182,7 @@
                     generatedLink.style.textDecoration = 'none';
                     generatedLink.style.fontStyle = 'italic';
                     generatedLink.style.fontWeight = 'normal';
+                    generatedLink.style.cursor = 'pointer';
                 }, 3000);
             }
         }
@@ -151,3 +195,6 @@
     </script>
 </body>
 </html>
+<footer>
+    &copy; 2025 <a href="https://github.com/Dr-Insanity/LinkToEmbed" target="_blank">LinkToEmbed</a>. Amateurly coded by <a href="https://github.com/Dr-Insanity/" target="_blank">Dr-Insanity (Github)</a>.
+</footer>

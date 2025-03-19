@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, send_file
 import urllib.parse
 import html
 
@@ -47,6 +47,10 @@ def embed():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/sitemap')
+def sitemap():
+    return send_file('../sitemap.xml')
 
 if __name__ == '__main__':
     app.run()
