@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, send_file
 import urllib.parse
 import html
 
@@ -50,7 +50,7 @@ def index():
 
 @app.route('/googleseo')
 def googleseo():
-    return send_from_directory('../templates', 'google6e048c08e4f17c14.html')
+    return send_file('../templates/google6e048c08e4f17c14.html', as_attachment=True)
 
 if __name__ == '__main__':
     app.run()
