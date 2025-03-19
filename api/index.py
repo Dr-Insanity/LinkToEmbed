@@ -50,7 +50,7 @@ def index():
 
 @app.route('/googleseo')
 def googleseo():
-    return send_from_directory('google6e048c08e4f17c14.html')
+    return send_from_directory('../templates', 'google6e048c08e4f17c14.html')
 
 if __name__ == '__main__':
     app.run()
