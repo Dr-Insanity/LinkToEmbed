@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory, request
 import urllib.parse
 import html
 
-app = Flask(__name__, template_folder='../templates')
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 @app.route('/embed')
 def embed():
