@@ -50,7 +50,7 @@ def index():
 
 @app.route('/sitemap')
 def sitemap():
-    return send_file('sitemap.xml')
+    return send_file('../sitemap.xml')
 
 if __name__ == '__main__':
     app.run()
