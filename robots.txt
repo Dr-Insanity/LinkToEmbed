@@ -34,4 +34,4 @@ Disallow:
 User-agent: *
 Disallow: 
 Crawl-delay: 60
-Sitemap: https://discordembeds.vercel.app/sitemap
+Sitemap: https://discordembeds.vercel.app/sitemap.xml
