@@ -48,7 +48,7 @@ def embed():
 def index():
     return render_template('index.html')
 
-@app.route('/sitemap')
+@app.route('/sitemap.xml')
 def sitemap():
     return send_file('../sitemap.xml')
 
