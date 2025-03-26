@@ -37,7 +37,7 @@ def embed():
     embed = "<head>\n   "
     for key, value in query.items():
         if key == '''property="twitter:image"''':
-            embed += f"""<meta property="og:image" content="{html.escape(value)}">"""
+            embed += f"""<meta property="twitter:image" content="{html.escape(value)}">"""
         else:
             embed += f"""<meta {key} content="{html.escape(value)}">"""
     embed += "</head>"
