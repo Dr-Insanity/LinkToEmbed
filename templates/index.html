@@ -120,6 +120,24 @@
             cursor: Select;
             text-decoration: underline;
         }
+        .pre-full-block {
+            font-family: monospace;
+            white-space: normal;
+            background: #000000;
+            text-align: left;
+            border-radius: 5px;
+            padding-left: 5px;
+        }
+        .preview-h {
+            display: block;
+            font-size: 1.5em;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            margin-left: 0;
+            margin-right: 0;
+            font-weight: bold;
+            unicode-bidi: isolate;
+        }
     </style>
 </head>
 <body>
@@ -134,66 +152,85 @@
         <label for="color">Choose a color:</label>
         <input type="color" id="color" oninput="updatePreview()">
         <!-- Option non-functional. WIP -->
-        <div style="text-align: left;"><p style="display: flex; align-items: center; margin: 0;">Hide in Discord message <label class="switch"><input type="checkbox" name="hideindiscmsg"><span class="slider round"></span></label></p></div>
+        <div style="text-align: left;"><p style="display: flex; align-items: center; margin: 0;">Hide in Discord message<label class="switch"><input type="checkbox" name="hideindiscmsg" onclick="markForHide()"><span class="slider round"></span></label></p></div>
     </div>
     
     <div class="preview-container">
-        <h2>Preview</h2>
+        <h2 class="preview-h">Preview</h2>
         <div class="copyable-link" id="generatedLink">Generated link will appear here</div>
         <div class="embed-preview" id="embedPreview">
             <div class="embed-title" id="embedTitle">Title Preview</div>
-            <div class="embed-description" id="embedDescription">Description Preview</div>
+            <div class="embed-description" id="embedDescription">Description Preview</div>            
         </div>
+        <h2 class="preview-h">Enabled options</h2>
+        <pre id="optionlist" class="pre-full-block"><p>❌ Link hidden</p></pre>
     </div>
 
     <script>
-    function updatePreview() {
-        const title = document.getElementById('title').value || "Title Preview";
-        const description = document.getElementById('description').value || "Description Preview";
-        const color = document.getElementById('color').value;
-
-        console.log(title);
-        // Check if any fields are empty and reset the preview link if so
-        const generatedLink = document.getElementById('generatedLink');
-        if (title ==  "Title Preview" || description == "Description Preview") {
-            generatedLink.textContent = "Fill in both text boxes to get a previewed link";
-            generatedLink.style.color = '#e73e42'; // Change to white if the fields are empty
-            generatedLink.style.cursor = 'not-allowed';
-            generatedLink.style.textDecoration = 'none';
-        } else {
-            // Generate a copyable link
-            const baseUrl = "https://discordembeds.vercel.app/embed?";
-            const params = new URLSearchParams({ title, description, color }).toString();
-            const fullLink = baseUrl + params;
-            generatedLink.textContent = fullLink;
-            generatedLink.style.color = '#00aafc'; // Use the blue color when the link is generated
-            generatedLink.style.cursor = 'pointer';
-            generatedLink.style.textDecoration = 'underline';
-            generatedLink.onclick = () => {
-                navigator.clipboard.writeText(fullLink);
-                generatedLink.textContent = "Copied to clipboard!";
-                generatedLink.style.fontStyle = 'normal';
-                generatedLink.style.color = '#1f9350'; // green success color
-                generatedLink.style.cursor = 'not-allowed';
-                generatedLink.style.textDecoration = 'none';
-                generatedLink.style.fontWeight = 'bold';
-
-                setTimeout(function() {
-                    generatedLink.style.color = '#00aafc';
-                    generatedLink.textContent = fullLink;
-                    generatedLink.style.textDecoration = 'none';
-                    generatedLink.style.fontStyle = 'italic';
-                    generatedLink.style.fontWeight = 'normal';
-                    generatedLink.style.cursor = 'pointer';
-                }, 3000);
+        const hideText = "||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​|| _ _ _ _ _ _"
+        let shouldHideLink = false
+        function markForHide() {
+            const hideCheckbox = document.querySelector('input[name="hideindiscmsg"]');
+            const optionList = document.querySelector('pre[id="optionlist"]');
+            if (hideCheckbox.checked == true) {
+                shouldHideLink = true;
+                optionList.innerHTML = optionList.innerHTML.replace('<p>❌ Link hidden</p>', '<p>✅ Link hidden</p>');
+            } else {
+                shouldHideLink = false;
+                optionList.innerHTML = optionList.innerHTML.replace('<p>✅ Link hidden</p>', '<p>❌ Link hidden</p>');
             }
         }
+        function updatePreview() {
+            const title = document.getElementById('title').value || "Title Preview";
+            const description = document.getElementById('description').value || "Description Preview";
+            const color = document.getElementById('color').value;
 
-        // Update embed preview
-        document.getElementById('embedTitle').textContent = title;
-        document.getElementById('embedDescription').textContent = description;
-        document.getElementById('embedPreview').style.borderLeftColor = color;
-    }
+            console.log(title);
+            // Check if any fields are empty and reset the preview link if so
+            const generatedLink = document.getElementById('generatedLink');
+            if (title ==  "Title Preview" || description == "Description Preview") {
+                generatedLink.textContent = "Fill in both text boxes to get a previewed link";
+                generatedLink.style.color = '#e73e42'; // Change to white if the fields are empty
+                generatedLink.style.cursor = 'not-allowed';
+                generatedLink.style.textDecoration = 'none';
+            } else {
+                // Generate a copyable link
+                const baseUrl = "https://discordembeds.vercel.app/embed?";
+                const params = new URLSearchParams({ title, description, color }).toString();
+                const fullLink = baseUrl + params;
+                generatedLink.textContent = fullLink;
+                generatedLink.style.color = '#00aafc'; // Use the blue color when the link is generated
+                generatedLink.style.cursor = 'pointer';
+                generatedLink.style.textDecoration = 'underline';
+                generatedLink.onclick = () => {
+                    if (shouldHideLink == false) {
+                        navigator.clipboard.writeText(fullLink);
+                    } else {
+                        navigator.clipboard.writeText(hideText+fullLink);
+                    }
+                    generatedLink.textContent = "Copied to clipboard!";
+                    generatedLink.style.fontStyle = 'normal';
+                    generatedLink.style.color = '#1f9350'; // green success color
+                    generatedLink.style.cursor = 'not-allowed';
+                    generatedLink.style.textDecoration = 'none';
+                    generatedLink.style.fontWeight = 'bold';
+
+                    setTimeout(function() {
+                        generatedLink.style.color = '#00aafc';
+                        generatedLink.textContent = fullLink;
+                        generatedLink.style.textDecoration = 'none';
+                        generatedLink.style.fontStyle = 'italic';
+                        generatedLink.style.fontWeight = 'normal';
+                        generatedLink.style.cursor = 'pointer';
+                    }, 3000);
+                }
+            }
+
+            // Update embed preview
+            document.getElementById('embedTitle').textContent = title;
+            document.getElementById('embedDescription').textContent = description;
+            document.getElementById('embedPreview').style.borderLeftColor = color;
+        }
     </script>
 </body>
 </html>
