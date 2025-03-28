@@ -27,8 +27,6 @@
     <meta property="twitter:description" content="Want to send embeds like bots? Well, now you can!" />
     <meta property="twitter:image" content="https://raw.githubusercontent.com/Dr-Insanity/LinkToEmbed/refs/heads/main/images/main.png" />
 
-    <!-- Meta Tags Generated with https://metatags.io -->
-
     <title>Discord Embed Builder</title>
     <style>
         footer {
@@ -36,8 +34,8 @@
             left: 0;
             position: fixed;
             width: 100%;
-            text-align: center; /* Centers text horizontally */
-            background-color: #252525; /* Optional: Background color */
+            text-align: center;
+            background-color: #252525;
         }
         a {
             color: #00aafc;
@@ -47,9 +45,10 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
         }
         .container, .preview-container {
+            z-index: 3;
+            position: relative;
             max-width: 400px;
             margin: auto;
             background: #1e1e1e;
@@ -138,6 +137,25 @@
             font-weight: bold;
             unicode-bidi: isolate;
         }
+        .optionslist.displayed {
+            transform: translate(475%, -100%);
+            box-shadow: 0px 0px 10px #C724B1;
+        }
+        .optionslist {
+            z-index: 0;
+            position: fixed;
+            max-width: 400px;
+            min-height: 26%;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 1%;
+            border-radius: 8px;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            transform: translate(300%, -100%);
+            transition: 0.5s ease-out;
+            gap: 15px;
+        }
     </style>
 </head>
 <body>
@@ -162,22 +180,26 @@
             <div class="embed-title" id="embedTitle">Title Preview</div>
             <div class="embed-description" id="embedDescription">Description Preview</div>            
         </div>
+    </div>
+    <div class="optionslist" id="optionslist">
         <h2 class="preview-h">Enabled options</h2>
         <pre id="optionlist" class="pre-full-block"><p>❌ Link hidden</p></pre>
     </div>
-
     <script>
         const hideText = "||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​|| _ _ _ _ _ _"
         let shouldHideLink = false
         function markForHide() {
             const hideCheckbox = document.querySelector('input[name="hideindiscmsg"]');
-            const optionList = document.querySelector('pre[id="optionlist"]');
+            const optionListInner = document.querySelector('pre[id="optionlist"]');
+            const optionsList = document.querySelector('div[id="optionslist"]');
             if (hideCheckbox.checked == true) {
                 shouldHideLink = true;
-                optionList.innerHTML = optionList.innerHTML.replace('<p>❌ Link hidden</p>', '<p>✅ Link hidden</p>');
+                optionsList.classList.add("displayed");
+                optionListInner.innerHTML = optionListInner.innerHTML.replace('<p>❌ Link hidden</p>', '<p>✅ Link hidden</p>');
+
             } else {
                 shouldHideLink = false;
-                optionList.innerHTML = optionList.innerHTML.replace('<p>✅ Link hidden</p>', '<p>❌ Link hidden</p>');
+                optionListInner.innerHTML = optionListInner.innerHTML.replace('<p>✅ Link hidden</p>', '<p>❌ Link hidden</p>');
             }
         }
         function updatePreview() {
